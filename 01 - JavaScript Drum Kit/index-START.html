@@ -60,6 +60,28 @@
 
 <script>
 
+const playSound = (e) => {
+  const div = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  if (!audio) {
+    return;
+  }
+  div.classList.add("playing");
+  audio.currentTime = 0;
+  audio.play();
+}
+
+const removePlaying = (e) => {
+  if (e.propertyName != "transform") {
+    return;
+  }
+  e.target.classList.remove("playing");
+}
+
+
+all_keys = Array.from(document.getElementsByClassName("key"))
+all_keys.forEach(key => key,addEventListener('transitionend', removePlaying));
+window.addEventListener('keydown', playSound);
 </script>
 
 
